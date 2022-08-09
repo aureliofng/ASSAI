@@ -1,0 +1,76 @@
+{% extends './base.html' %}
+{% block title %}
+  Edición de Estudiante
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <h1>Edición de Estudiante</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <form action="/editarEstudiante/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="mb-3">
+                <input type="hidden" name="id" id="" value="{{estudiante.id}}" />
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" name="nombre_1" id="" value="{{estudiante.nombre_1}}" class="form-control" placeholder="Primer nombre" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Segundo nombre</label>
+                <input type="text" name="nombre_2" id="" value="{{estudiante.nombre_2}}" class="form-control" placeholder="Segundo nombre" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Apellido</label>
+                <input type="text" name="apellido_1" id="" value="{{estudiante.apellido_1}}" class="form-control" placeholder="Primer apellido" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Segundo apellido</label>
+                <input type="text" name="apellido_2" id="" value="{{estudiante.apellido_2}}" class="form-control" placeholder="Segundo apellido" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Tipo de documento</label>
+                <select name="tipo_doc" class="form-control" >
+                  {% for w in tipos_documentos %}
+                  <option value="{{ w.id }}" {% if w.id == estudiante.tipo_doc_id %}selected{% endif %} >{{ w.desc }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Número de documento</label>
+                <input type="text" name="id_estudiante" id="" value="{{estudiante.id_estudiante}}" class="form-control" placeholder="Número de documento" />
+              </div>
+
+              <div class="mb-3">
+                <label for="" class="form-label">Minicipio</label>
+                <select name="municipio" class="form-control">
+                  
+                  {% for j in municipios %} 
+                                               
+                  <option value="{{ j.id }}" {% if j.id == estudiante.municipio_id %}selected{% endif %}>{{ j.nombre }}</option>
+                 
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Celular</label>
+                <input type="text" name="celular" id="" value="{{estudiante.celular}}" class="form-control" placeholder="Celular" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Fecha de nacimiento</label>
+                <input type="date" name="f_nacimiento" id="f_nacimiento" value="{{estudiante.f_nacimiento|date:"Y-m-d"}}" class="form-control" placeholder="Fecha de nacimiento" />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Actualizar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

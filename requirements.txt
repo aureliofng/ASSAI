@@ -1,0 +1,2 @@
+django == 4.0.6
+html2pdf == 0.1

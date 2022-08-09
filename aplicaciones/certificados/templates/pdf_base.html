@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      @page {
+        size: letter landscape;
+        margin: 0cm;
+        background-image: url('http://localhost:8000/static/img/certificado_back.pdf');
+        
+
+        @frame content_frame {
+          left: 50px;
+          width: 1056px;
+          top: 200px;      
+        }
+      }
+      p {
+        font-family: Fira;
+        font-size: 14px;
+        color: black;
+        font-weight: 400;
+        margin: 0px;
+        background-image: none;
+      }
+      h1 {
+        font-size: 40px;
+        font-weight: 700;
+        color: black;
+        margin: 0px;
+      }
+      h2 {
+         font-size: 40px;
+         font-weight: 700;
+         color: black;
+         margin: 0px;
+      }
+      h3 {
+        font-size: 30px;
+        font-weight: 700;
+        color: black;
+        margin: 0px;
+      }
+      h3 {
+         font-size: 40px;
+         font-weight: 700;
+        color: black;
+        margin: 0px;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <canvas type="graph" width="350" height="150">
+      {
+           
+            "title": {"_text": "Horizontal Bar Chart(1 Group)", "x": 290, "y": 155},
+            
+      }
+</canvas>
+    <p>
+      Servicios ASSAI<br />
+      Nit: 900.972.093-1 Reg. Mercantil: 0081071,<br>
+      avalado por el decreto 1075 del 26 de mayo de 2015.<br>
+      Según acto administrativo XXXXXXXXXX<br>
+      de la Entidad Territorial de Salud de Apartadó<br>
+    </p>
+    <h3>Certifica que:</h3>
+    <h1>Fernando Francisco Fernandez Hernandez</h1>
+    <p>
+      Con documento de identidad: 1000000001<br>
+      Cursó y aprobó el curso de
+    </p>
+    <h2>Higiene y manipulación de alimentos</h2>
+    <p>
+      Con una duración de 10 horas y vigencia de 1 año.<br>
+      En testimonio de ello se firma en Apartadó, <br>
+      el día 1 del mes de diciembre de 2020.
+    </p>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+  Gestión de Formaciones
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+    <div class="col-md-12">
+      <div class="container-fluid">
+        <h1>Lista de Certificados</h1>
+        {% if messages %}
+        {% for messages in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong class="text-dark">{{ messages }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="card table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th scope="col">Código</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Departamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in municipios %}
+              <tr >
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.id }}</td>
+                <td>{{ c.nombre }}</td>
+                <td>{{ c.departamento }}</td>
+
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block static %}
+<script src="{% static 'js/gestionFormacion.js' %}"> </script>
+{% endblock static %}
+

@@ -1,0 +1,48 @@
+{% extends './base.html' %}
+{% block title %}
+  Edición de Formación
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <h1>Edición de Formación</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <form action="/editarFormacion/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="mb-3">
+                <input type="hidden" name="id" id="" value="{{formacion.id}}" />
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" name="nombre" id="" value="{{formacion.nombre}}" class="form-control"  />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Tipo de formación</label>
+                <select name="tipo_formacion" class="form-control" >
+                  {% for m in tipoformacion %}
+                  <option value="{{ m.id }}" {% if m.id == formacion.tipo_formacion_id %}selected{% endif %}>{{ m.desc }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Duración en horas</label>
+                <input type="text" name="horas" id="" value="{{formacion.horas}}" class="form-control"  />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Vigencia en días del certificado</label>
+                <input type="text" name="vigencia_dias" id="" value="{{formacion.vigencia_dias}}" class="form-control"  />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Actualizar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

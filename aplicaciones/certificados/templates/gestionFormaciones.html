@@ -1,0 +1,97 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+  Gestión de Formaciones
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+    <div class="col-md-4">
+      <div class="container-fluid">
+        <h1>Gestión de Formaciones</h1>
+      </div>
+      
+      <div class="card">
+        <div class="card-body">
+          <form action="/registrarFormacion/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="mb-3">
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre de la formación" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Tipo de formación</label>
+                <select name="tipo_formacion" class="form-control" >
+                  {% for j in tipoformacion %}
+                  <option value="{{ j.id }}">{{ j.desc }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Duración en horas</label>
+                <input type="text" name="horas" id="" class="form-control" placeholder="Numero de horas de la formación" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Vigencia en días del certificado</label>
+                <input type="text" name="vigencia_dias" id="" class="form-control" placeholder="Número de días de vigencia" />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="container-fluid">
+        <h1>Lista de Formaciones</h1>
+        {% if messages %}
+        {% for messages in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong class="text-dark">{{ messages }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="card table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Tipo de formación</th>
+              <th scope="col">Horas</th>
+              <th scope="col">Días vigencia</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in formaciones %}
+              <tr >
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.nombre }}</td>
+                <td>{{ c.tipo_formacion }}</td>
+                <td>{{ c.horas }}</td>
+                <td>{{ c.vigencia_dias }}</td>
+                <td>
+                   <a href="/edicionFormacion/{{c.id}}" class="link-info" role="button">Editar</a> | <a href="/eliminarFormacion/{{c.id}}" id="btnEliminacion" class="link-danger" role="button">Eliminar</a>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block static %}
+<script src="{% static 'js/gestionFormacion.js' %}"> </script>
+{% endblock static %}
+

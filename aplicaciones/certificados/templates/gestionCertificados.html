@@ -1,0 +1,121 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}
+  Gestión de Formaciones
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+    <div class="col-md-4">
+      <div class="container-fluid">
+        <h1>Gestión de Certificados</h1>
+      </div>
+      
+      <div class="card">
+        <div class="card-body">
+
+          
+
+
+
+         
+         
+              <form class="form-inline" method="GET"> 
+               
+                <div class="card bg-info mb-3">
+                  <div class="card-body row">               
+                <div class="col-xl-10 ">
+                <input class="form-control mr-xl-2" name="buscar" type="number" placeholder="Identificaion de estudiante" aria-label="Buscar">
+              </div>
+              <div class="col-xl-2 ">
+                <button class="btn btn-success btn-block my-2 my-xl-0" type="submit">Buscar</button>
+              </div>
+            </div>
+          </div>
+        
+          </form>         
+
+
+
+          <form action="/registrarCertificado/" method="POST">
+            {% csrf_token %}
+            {% for i in busqueda %}
+              <div class="alert alert-info mt-3">                
+                <input type="radio" name="id_estudiante" value="{{ i.id }}"> Estudiante: <b>{{ i.nombre_1 }} {{ i.nombre_2 }} {{ i.apellido_1 }} {{ i.apellido_2 }}</b> Documento: <b>{{ i.id_estudiante }}</b><br>
+              </div>
+              {% endfor %}                        
+              <div class="mb-3">
+                <label for="" class="form-label">Formación a certificar</label>
+                <select name="id_formacion" class="form-control" >
+                  {% for p in formaciones %}
+                  <option value="{{ p.id }}">{{ p.nombre }} | {{ p.horas }} (Horas)</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="" class="form-label">Fecha de certificación</label>
+                <input type="date" name="fecha" id="" class="form-control" />
+              </div>
+              
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="container-fluid">
+        <h1>Lista de Certificados</h1>
+        {% if messages %}
+        {% for messages in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong class="text-dark">{{ messages }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="card table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th scope="col">Código</th>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Formación</th>
+              <th scope="col">Fecha certificado</th>
+              <th scope="col">Fecha vencimiento</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in certificados %}
+              <tr >
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.id_certificado }}</td>
+                <td>{{ c.id_estudiante }}</td>
+                <td>{{ c.id_formacion }}</td>
+                <td>{{ c.fecha }}</td>
+                <td>{{ c.fecha_vencimiento }}</td>
+                <td>
+                   <a href="/pdf/{{c.id_certificado}}" class="link-info" role="button">Editar</a> | <a href="/eliminarCertificado/{{c.id_certificado}}" id="btnEliminacion" class="link-danger" role="button">Eliminar</a>
+                    
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block static %}
+<script src="{% static 'js/gestionFormacion.js' %}"> </script>
+{% endblock static %}
+
